@@ -140,7 +140,7 @@ if($nameIsValid === true && $passIsValid === true
 	$password   = "";
 	$dbname     = "websec01";
 
-	$conn = new mysqli($servername, $username, $password, $dbname);
+		$conn = new mysqli($servername, $username, $password, $dbname);
 
 	
 	// mysql_insert_id()

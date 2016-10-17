@@ -1,2 +1,4 @@
-.idea
-vendor
+.idea/
+vendor/
+local_config.php
+local_test/
