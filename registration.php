@@ -149,10 +149,15 @@ if($nameIsValid === true && $passIsValid === true
 	$address = $_POST["address"];
 	$name = $_POST["name"];
 
-	$sqlCheckEmail = "SELECT email FROM userinformation where email='$email'";
-	$checkEmailResult = $conn->query($sqlCheckEmail);
-	$sqlCheckUser = "SELECT user_name FROM users where user_name='$user'";
-	$checkUserResult=$conn->query($sqlCheckUser);
+	$sqlCheckEmail = $conn->prepare("SELECT email FROM userinformation where email=?");
+	$sqlCheckEmail->bind_param('s', $email);
+	$checkEmailResult = $sqlCheckEmail->execute();
+	$sqlCheckEmail->close();
+
+	$sqlCheckUser = $conn->prepare("SELECT user_name FROM users where user_name=?");
+	$sqlCheckUser->bind_param('s', $user);
+	$checkUserResult = $sqlCheckUser->execute();
+	$sqlCheckUser->close();
 
 	if($checkUserResult)
 	{
@@ -176,18 +181,37 @@ if($nameIsValid === true && $passIsValid === true
 		}
 	}
 
-	$sql = "INSERT INTO users (user_name,user_password,user_role) values ('$user', '$hashedPassword', 1)";
+	// $sql = "INSERT INTO users (user_name,user_password,user_role) values ('$user', '$hashedPassword', 1)";
+	if($sql = $conn->prepare("INSERT INTO users (user_name, user_password, user_role) VALUES(?,?,?)"))
+	{
+		//user role defaulted to one, probably being normal user.
+		$user_role = 1;
+		$sql->bind_param('ssd', $user, $hashedPassword, $user_role);
+	}
+	else{
+		printf("Errormessage: %s\n", $conn->error);
+	}
+	
+
+
+
 	//$result = $conn->query($sql);
 
 	//checks if query was succesfull and fetches ID if it was.
-	if ($conn->query($sql) === TRUE) {
+	if ($sql->execute() === TRUE)
+	{
+		$sql->close();
 		$last_id = $conn->insert_id;
-		$sql2 = "INSERT INTO userinformation(userid, email,address,name)
-		values ('$last_id', '$email', '$address', '$name')";
-		$conn->query($sql2);
+		$sql2 = $conn->prepare("INSERT INTO userinformation(userid, email,address,name)
+		values (?,?,?,?)");
+		$sql2->bind_param('dsss', $last_id, $email, $address, $name);
+		$sql2->execute();
+		$sql2->close();
+
+		//$conn->query($sql2);
 		// echo "New record created successfully. Last inserted ID is: " . $last_id;
 	} else {
-		// echo "Error: " . $sql . "<br>" . $conn->error;
+		echo $conn->error;
 	}
 	
 }
