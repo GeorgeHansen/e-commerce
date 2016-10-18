@@ -1,4 +1,4 @@
 .idea/
 vendor/
-local_config.php
+config.php
 local_test/

@@ -7,7 +7,7 @@
  * Status - In progress
  * Purpose centrilise db connection
  */
-include 'local_config.php';
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+include 'config.php';
+phpinfo();
+//$conn = new mysqli($servername, $username, $password, $dbname);
 print_r($config["db"]["dbname"]);

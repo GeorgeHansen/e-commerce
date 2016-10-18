@@ -8,7 +8,7 @@
 
 
 require_once "vendor/autoload.php";
-include_once "local_config.php";
+include_once "config.php";
 class mail_sender
 {
 
