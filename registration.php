@@ -11,94 +11,97 @@ $user = $name =  $address = $password = $email =  $passwordRepeat = "";
 $userIsValid = $nameIsValid = $passIsValid = $passRepeatIsValid = $emailIsValid =  $addressIsValid =  false;
 
 
-
-if (empty($_POST["user"])) {
-	$userErr = "Username is required";
-}
-else{
-	$user = test_input($_POST["user"]);
-	// check if username only contains letters and whitespace
-	if (!preg_match("/^[a-zA-Z0-9]*$/ ", $user)) {
-		$userErr = "Only letters and numbers are allowed";
-	}
-	else{
-		//validation passes
-		$userIsValid = true;
-		
-	}
-}
-if (empty($_POST["name"])) {
-	$nameErr = "Name is required";
-} else {
-	$name = test_input($_POST["name"]);
-// check if name only contains letters and whitespace
-	if (!preg_match("/^[a-zA-Z ]*$/ ", $name)) {
-		$nameErr = "Only letters and white space allowed";
-	}
-	else{
-		
-		//validation passes
-		$nameIsValid = true;
-	}
-}
-if (empty($_POST["address"])) {
-	$addressErr = "Address is required";
-} else {
-	$address = test_input($_POST["address"]);
-
-	//validation passes
-	$addressIsValid = true;
-}
-
-if (empty($_POST["password"])) {
-	$passwordErr = "Password is required";
-} else {
-	$password = test_input($_POST["password"]);
-// check if password is well-formed
-	$uppercase = preg_match('@[A-Z]@', $password);
-	$lowercase = preg_match('@[a-z]@', $password);
-	$number    = preg_match('@[0-9]@', $password);
-
-	if (!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
-		$passwordErr = "Invalid password format";
-	}
-	else{
-
-		//password validation passes
-		$passIsValid = true;
-	}
-}
-if(empty($_POST["passwordRepeat"])){
-	$passwordRepeatErr = "Password repeat is required";
-}
-else{
-	if(($_POST["passwordRepeat"]) != ($_POST["password"]))
-	{
-
-		$passwordRepeatErr = "Passwords do not match";
-		
-	}
-	else{
-		$passwordRepeat = test_input($_POST["passwordRepeat"]);
-		$passRepeatIsValid = true;
-	}	
-}
-if(empty($_POST["email"]))
+if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-	$emailErr = "Email is required";
-}
-else
-{
-	$email = test_input($_POST["email"]);
-	if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-	{
-		$emailErr = "Invalid email format";
+	if (empty($_POST["user"])) {
+		$userErr = "Username is required";
 	}
 	else{
-		$emailIsValid = true;
-		
+		$user = test_input($_POST["user"]);
+		// check if username only contains letters and whitespace
+		if (!preg_match("/^[a-zA-Z0-9]*$/ ", $user)) {
+			$userErr = "Only letters and numbers are allowed";
+		}
+		else{
+			//validation passes
+			$userIsValid = true;
+			
+		}
+	}
+	
+	if (empty($_POST["name"])) {
+		$nameErr = "Name is required";
+	} else {
+		$name = test_input($_POST["name"]);
+	// check if name only contains letters and whitespace
+		if (!preg_match("/^[a-zA-Z ]*$/ ", $name)) {
+			$nameErr = "Only letters and white space allowed";
+		}
+		else{
+			
+			//validation passes
+			$nameIsValid = true;
+		}
+	}
+	if (empty($_POST["address"])) {
+		$addressErr = "Address is required";
+	} else {
+		$address = test_input($_POST["address"]);
+
+		//validation passes
+		$addressIsValid = true;
+	}
+	if (empty($_POST["password"])) {
+		$passwordErr = "Password is required";
+	} else {
+		$password = test_input($_POST["password"]);
+	// check if password is well-formed
+		$uppercase = preg_match('@[A-Z]@', $password);
+		$lowercase = preg_match('@[a-z]@', $password);
+		$number    = preg_match('@[0-9]@', $password);
+
+		if (!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
+			$passwordErr = "Invalid password format";
+		}
+		else{
+
+			//password validation passes
+			$passIsValid = true;
+		}
+	}
+	if(empty($_POST["passwordRepeat"])){
+		$passwordRepeatErr = "Password repeat is required";
+	}
+	else{
+		if(($_POST["passwordRepeat"]) != ($_POST["password"]))
+		{
+
+			$passwordRepeatErr = "Passwords do not match";
+			
+		}
+		else{
+			$passwordRepeat = test_input($_POST["passwordRepeat"]);
+			$passRepeatIsValid = true;
+		}	
+	}
+	if(empty($_POST["email"]))
+	{
+		$emailErr = "Email is required";
+	}
+	else
+	{
+		$email = test_input($_POST["email"]);
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+		{
+			$emailErr = "Invalid email format";
+		}
+		else{
+			$emailIsValid = true;
+			
+		}
 	}
 }
+
 
 function test_input($data) {
 	$data = trim($data);
@@ -143,43 +146,49 @@ if($nameIsValid === true && $passIsValid === true
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
 	
-	// mysql_insert_id()
+	
 	$user = $_POST["user"];
 	$email = $_POST["email"];
 	$address = $_POST["address"];
 	$name = $_POST["name"];
 
+	//check if email exists. Prepare the statement, bind parameters, execute the query.
+	//store the result of the query, get properties. Optionally bind the result to variables.
+	//Then close the query. 
 	$sqlCheckEmail = $conn->prepare("SELECT email FROM userinformation where email=?");
 	$sqlCheckEmail->bind_param('s', $email);
-	$checkEmailResult = $sqlCheckEmail->execute();
+	$sqlCheckEmail->execute();
+	$sqlCheckEmail->store_result();
+	$emailExist = $sqlCheckEmail->num_rows;
 	$sqlCheckEmail->close();
 
+
+
+	//check if username exists	
 	$sqlCheckUser = $conn->prepare("SELECT user_name FROM users where user_name=?");
-	$sqlCheckUser->bind_param('s', $user);
-	$checkUserResult = $sqlCheckUser->execute();
+	$sqlCheckUser->bind_param('s',$user); 
+	$sqlCheckUser->execute();
+	$sqlCheckUser->store_result();
+	$userExist = $sqlCheckUser->num_rows;
 	$sqlCheckUser->close();
 
-	if($checkUserResult)
-	{
-		if($checkUserResult->num_rows === 0)
-		{
-			if($checkEmailResult)
-			{
-				if($checkEmailResult->num_rows === 0)
-				{
-					echo '<p style="color:green;">The data is being saved</p>';
-				}
-				else{
-					echo '<p style="color:red;">Email already exists</p>';
-				}
+	
 
+	if($userExist === 0)
+	{
+			if($emailExist === 0)
+			{
+				echo '<p style="color:green;">The data is being saved</p>';
 			}
-		}
-		else
-		{
-			echo '<p style="color:red;">Username already exists</p>';
-		}
+			else{
+				echo '<p style="color:red;">Email already exists</p>';
+			}
 	}
+	else
+	{
+		echo '<p style="color:red;">Username already exists</p>';
+	}
+	
 
 	// $sql = "INSERT INTO users (user_name,user_password,user_role) values ('$user', '$hashedPassword', 1)";
 	if($sql = $conn->prepare("INSERT INTO users (user_name, user_password, user_role) VALUES(?,?,?)"))
@@ -204,7 +213,7 @@ if($nameIsValid === true && $passIsValid === true
 		$last_id = $conn->insert_id;
 		$sql2 = $conn->prepare("INSERT INTO userinformation(userid, email,address,name)
 		values (?,?,?,?)");
-		$sql2->bind_param('dsss', $last_id, $email, $address, $name);
+		$sql2->bind_param('isss', $last_id, $email, $address, $name);
 		$sql2->execute();
 		$sql2->close();
 
