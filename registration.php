@@ -1,3 +1,9 @@
+<!-- 
+	 TODO: transaction insert of user, userinformation and ip
+	 TODO: split html and php
+	 TODO: fit validation into functions
+ -->
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php 
 
@@ -217,6 +223,13 @@ if($nameIsValid === true && $passIsValid === true
 		$sql2->execute();
 		$sql2->close();
 
+		$ipaddress = get_client_ip();
+		$sqlInsertIP = $conn->prepare("INSERT INTO ips(userid,ip) values(?,?)");
+		$sqlInsertIP->bind_param('is', $last_id, $ipaddress);
+		$sqlInsertIP->execute();
+		$sqlInsertIP->close();
+
+
 		//$conn->query($sql2);
 		// echo "New record created successfully. Last inserted ID is: " . $last_id;
 	} else {
@@ -225,8 +238,28 @@ if($nameIsValid === true && $passIsValid === true
 	
 }
 
-
-
+/**
+* We'll constantly get the local ip address when using this on a local server.
+* values should be more accurate on a server.
+*/ 
+function get_client_ip() {
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if(isset($_SERVER['REMOTE_ADDR']))
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+}
 
 ?>
 
@@ -293,6 +326,14 @@ if($nameIsValid === true && $passIsValid === true
 				<span class="registrationFormAlert error" id="divCheckPasswordMatch"></span> 
 				<div class="col-xs-3">
 					<input type="password" class="form-control" name="passwordRepeat" id="passwordRepeat">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<p class="col-sm-4">
+						Your current ip address will be registered as being "home". </br>
+						This can be modified later.
+					</p>
 				</div>
 			</div>
 			<div class="form-group">
