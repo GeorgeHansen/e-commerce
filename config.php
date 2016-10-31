@@ -8,7 +8,7 @@
 
 $config = array(
     "db" => array(
-            "dbname" => "localhost",
+            "dbname" => "websec01",
             "username" => "test",
             "password" => "test1234",
             "host" => "localhost"
@@ -17,5 +17,8 @@ $config = array(
         "name" => "samoni",
         "user" => "samoniwebsec@gmail.com",
         "pass" => "KeaWebSec16"
+    ),
+    "token" => array(
+        "expiration" => 12
     )
 );

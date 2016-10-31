@@ -5,14 +5,12 @@
  * Date: 10/18/16
  * Time: 12:10 AM
  */
-
-
 require_once "vendor/autoload.php";
 include_once "config.php";
 class mail_sender
 {
-
-    function send_reg_code($email){
+    #not yet done needs to be reconfigured with mail api
+    function send(string $email, string $context){
         global $config;
         $mail = new PHPMailer();
         //Enable SMTP debugging.
@@ -39,7 +37,7 @@ class mail_sender
         $mail->isHTML(true);
 
         $mail->Subject = "Subject Text";
-        $mail->Body = "<i>Mail body in HTML</i>";
+        $mail->Body = $context;
         $mail->AltBody = "This is the plain text version of the email content";
 
         if(!$mail->send())
