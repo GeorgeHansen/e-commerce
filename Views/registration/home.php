@@ -15,14 +15,13 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2"><h2>Welcome!!!</h2></label>
 			</div>
-
+			<?php if(isset($errors)) print_r($errors) ?>
 			<p class="col-sm-offset-1">Please, fill in the registration form!</p>
-
 			<div class="form-group">
 				<label class="control-label col-sm-2" >Username:</label> 
 				<span class="error"> <?php if(isset($userErr)) echo $userErr;?></span>
 				<div class="col-xs-3">
-					<input type="text" class="form-control" name="user" id="user" >
+					<input type="text" class="form-control" name="user_name" id="user_name" >
 				</div>
 			</div>
 				<div class="form-group">
@@ -80,7 +79,7 @@
 	</body>
 </html>
 
-<!-- Used to check if the passwords match. -->
+<!-- Used to check if the passwords match. TODO: change color to green if they do match -->
 <script type="text/javascript">
 	$(function() {
 		$("#passwordRepeat").keyup(function() {
