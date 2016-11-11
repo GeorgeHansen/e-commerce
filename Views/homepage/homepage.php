@@ -1,25 +1,26 @@
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js">
-</script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<br>
 
 <div class="container">
+
+
+<div class="jumbotron">
+	<h1>Millionaire maker</h1>
+	<p>Without wanting to brag or boast, we can humbly say that we have the capacity to enable you to become a millionaire! Now who doesn't want to make a million??? Not you!!! <a href="#">$ Start Here $</a> </p>
+</div>
+
 
 <!-- display max 4 items on the page. -->
 <?php 
 
+// Temp list of names just to see how we might use them in the generated products.
   $names = [
         "sam",
         "bob",
         "craig",
         "samuel"
-
     ];
     // TODO: Loop through each product. Make sure to limit the number of products to 4.
     // We need: product [name: description: picture: price ] user[ user_name ]
-    foreach($names as $name){ 
+foreach($names as $name){ 
 
 ?>
     <!-- Template for all products -->
@@ -50,4 +51,3 @@
 
 </div>
 <?php } ?>
-

@@ -1,9 +1,6 @@
-<!-- Remove after adding navbar to layout -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- remove after adding navbar to layout -->
-
+<!--
+  TODO: Perhaps we want a logged in navbar and a logged out navbar? Or only a navbar if you're logged in?
+ -->
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -15,31 +12,21 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Flonisa</a>
+      <a class="navbar-brand" href="?controller=homepage&action=home">Webshop</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Sell Stuff!</a></li>
         
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <!-- This should be generated from the database -->
-            <li><a href="#">Electronics</a></li>
-            <li><a href="#">Fashion</a></li>
-            <li><a href="#">Baby Stuff!</a></li>
-            <li><a href="#">Food</a></li>
-            <li><a href="#">Transport</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Christmas</a></li>
-          </ul>
-        </li>
       </ul>
       <form class="navbar-form navbar-left">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" placeholder="Search Products">
         </div>
+        <!-- I'm just going to assume we want to search for products.  -->
           <a href="#" class="btn btn-default ">
             <span class="glyphicon glyphicon-search"></span> Search 
           </a>
@@ -48,7 +35,7 @@
         <li><a href="#">About Us</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 
-        <!-- Have a login button if the user is not logged in.  -->
+        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Samuel <span class="caret"></span></a>
           <ul class="dropdown-menu">

@@ -12,7 +12,13 @@
     </header>
 
     
-    <?php require_once('routes.php'); ?>
+    <?php 
+
+    require_once('Views/navbar.html');
+    require_once('routes.php'); 
+
+
+    ?>
 
     <footer>
      
