@@ -69,6 +69,9 @@ class temp_user_verification_class
         return empty($result);
 
     }
+    function update_password(string $token){
+
+    }
     #posibly problematic
     private function generate_token( PDO $conn, int $userid, int $purpose) : string{
         $token = bin2hex(random_bytes(32));
