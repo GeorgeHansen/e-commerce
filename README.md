@@ -1,8 +1,8 @@
 This repo is for the web security elective on software development.
 
-Project is using php and mysql with no framework.
+Techstack
+    php 7
+    mysql
 
-The project is using composer to add libraries (currently the only one is phpmailer)
-To install simply install composer and run composer install.
-
-mail() is disabled on the given server which means that phpmailer and composer won't be used except for testing
+Project is using a selfmade mvc framework (ok there is no models so vc) as the class does not allow for frameworks.
+Also using an email api specificly for this project.

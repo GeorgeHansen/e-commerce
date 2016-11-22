@@ -6,30 +6,31 @@
  * Date: 10/28/16
  * Time: 2:21 AM
  */
-include_once "db.php";
-include_once "mail_sender.php";
-include_once "config.php";
+include_once "../db.php";
+include_once "comapi.php";
+include_once "../config.php";
+require_once('../Database.php');
 #TODO: change the way purpose is defined for this entire class
-class temp_user_verification_class
+class user_verification
 {
     #creates token for authentication and sends email
     #
     function send_ver_email(string $user_name, int $purpose){
-        $conn = db_connect();
-        $stmt = $conn->prepare(
-            "SELECT users.id, email, user_name, user_verified, name
-              FROM users inner join userinformation on users.id = userid WHERE users.user_name = ?;");
-        $stmt->execute(array($user_name));
-        $result =$stmt->fetchAll();
+
+        $db = Database::getInstance();
+        $sql = "SELECT users.id, email, user_name, user_verified, name
+              FROM users inner join userinformation on users.id = userid WHERE users.user_name = ?;";
+        $db->query($sql, array($user_name));
+        $result =$db->getResults();
         if(empty($result)){
             return;
         }
         $user = $result[0];
-        $token = $this->generate_token($conn, $user[id], $purpose);
+        $token = $this->generate_token($db, $user[id], $purpose);
         if(empty($token)){
             return;
         }
-        $mail = new mail_sender();
+        $mail = new comapi();
         #TODO: create template and add link to correct url instead of the token
         switch ($purpose){
             case 1:
@@ -45,16 +46,20 @@ class temp_user_verification_class
 
         #TODO: check if valid token allready exists and invalidate it?
 
-        #TODO: change email to not be hardcoded ^^
-        $mail->send("zera1337+testing@gmail.com", $message);
+        $mail->SendEmailv2($user["email"], "confirmation email", $message);
 
     }
     function verify(string $token, int $purpose){
         global $config;
+        $db = Database::getInstance();
+        $sql = "SELECT * from user_token WHERE token = ? and created + INTERVAL ? HOUR > NOW() and invalidated is NULL and purpose = ?;";
+        $db->query($sql, array(hash("sha256", $token), $config["token"]["expiration"], $purpose));
         $conn = db_connect();
+
+
         $stmt = $conn->prepare(
             "SELECT * from user_token WHERE token = ? and created + INTERVAL ? HOUR > NOW() and invalidated is NULL and purpose = ?;");
-        $stmt->execute(array(hash("sha256", $token), $config["token"]["expiration"], $purpose));
+        $stmt->execute(11111111);
         $result =$stmt->fetchAll();
         if(empty($result)){
             return false;
@@ -73,16 +78,16 @@ class temp_user_verification_class
 
     }
     #posibly problematic
-    private function generate_token( PDO $conn, int $userid, int $purpose) : string{
+    private function generate_token( Database $conn, int $userid, int $purpose) : string{
         $token = bin2hex(random_bytes(32));
-        $stmt = $conn->prepare("INSERT INTO user_token
+        $sql = "INSERT INTO user_token
                                 (token, created, userid, purpose)
-                                VALUES(?, NOW(), ?, ?);");
-        if(!$stmt->execute(array(hash("sha256", $token), $userid, $purpose))) {
+                                VALUES(?, NOW(), ?, ?);";
+        $conn->query($sql, array(hash("sha256", $token), $userid, $purpose));
+        if(!$conn->getCount()) {
             return;
         }
         return $token;
-
     }
 
 }

@@ -13,10 +13,9 @@ $config = array(
             "password" => "test1234",
             "host" => "localhost"
     ),
-    "gmail" => array(
-        "name" => "samoni",
-        "user" => "samoniwebsec@gmail.com",
-        "pass" => "KeaWebSec16"
+    "comapi" => array(
+        "user" => "Group03",
+        "pass" => "D27DEFA9565EAA1F"
     ),
     "token" => array(
         "expiration" => 12
