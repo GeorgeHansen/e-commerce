@@ -5,7 +5,7 @@ class RegistrationController{
 	//the get page.
 	public function home()
 	{
-      require_once('views/registration/home.php');
+      require_once('views/registration/home.html');
     }
 
     public function error() 

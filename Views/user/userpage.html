@@ -42,12 +42,6 @@
 		margin-top: 5px;
 		margin-bottom: 5px;
 	}
-
-
-	
-
-
-
 	</style>
 	
 </head>
@@ -59,7 +53,13 @@
 		<div class="portion">
 			<div class="container content">
 				<img src="http://placehold.it/200x200">
-				<h3><a href=""> Samnotsowise<!-- php stuff to get the user name --></a></h3>
+				<h3><a href="">
+					<?php 
+						// print_r($reviews);
+					 if(isset($username)){
+							echo $username[0]->user_name;
+				 		} ?>
+				</a></h3>
 				<p><strong>From:</strong> United States of America</p>
 				<p><strong>Rating: 
 					<span class="glyphicon glyphicon-star rating"></span>
@@ -80,27 +80,39 @@
 
 				<!-- Only display the last 5 reviews -->
 				<!-- First Review -->
+				<?php if(!empty($reviews)){ 
+
+						for($i=0; $i< count($reviews); $i++){
+
+				?>
 				<div class="row">
 					<div class="col-sm-10">
 						<p>
-							<a href="">MeeYouAndIrene</a>: Just when I thought I was finished going to this site because so many products are just plain vulgar, boring, and loud and not worth the investment of my time, along comes this near perfect person. The products, the colors that were chosen, and the dialogue (refreshingly witty and at times thought provoking)... it all comes together in so enjoyable a fashion that I did not want to walk away from him! Aside from the foul-mouthed rant about politicians (what a surprise, right?), there was not one minute of the meeting I would change in any way. If you want to come away from an experience feeling good with plenty of information to discuss afterwards, then RUN to see "Samnotwise"!
+							<!-- TODO: actually link it to the reviewers page. -->
+							<a href=""><?php echo $reviews[$i]->getReviewer(); ?></a>: <?php echo $reviews[$i]->getReview(); ?>
 						</p>
 
 					</div>
 					<div class="col-sm-2">
 						<div class="row">
-							<span class="glyphicon glyphicon-star rating"></span>
+							<span class="glyphicon glyphicon-star-empty rating"></span>
 							<span class="glyphicon glyphicon-star-empty rating"></span>
 							<span class="glyphicon glyphicon-star-empty rating"></span>
 							<span class="glyphicon glyphicon-star-empty rating"></span>
 							<span class="glyphicon glyphicon-star-empty rating"></span>
 						</div>
 						<div class="row" >
-							<strong><p>12/10/2011</p></strong>
+							<strong><p><?php echo $reviews[$i]->getReviewDate(); ?></p></strong>
 						</div>
 					</div>
 				</div>
-				<!-- Second Review -->
+				<?php 
+						}
+					}
+					else{
+						echo "There are currently no reviews, how about you make one?";
+					} ?>
+				<!-- Second Review --><!-- 
 				<div class="row">
 					<div class="col-sm-10">
 						<p>
@@ -120,7 +132,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- Third Review -->
+				<!-- Third Review --> <!--
 				<div class="row">
 					<div class="col-sm-10">
 						<p>
@@ -139,7 +151,7 @@
 							<strong><p>01/01/2001</p></strong>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="row">
 					<div class="col-sm-5">
@@ -161,11 +173,11 @@
 
 				<label for="review">Leave a review:</label>
 				<textarea class="form-control" rows="4" id="review" style="width:97%;"></textarea>
-				<label for="rating">Rating: </label>
-				<span><input class="form-control" type="number" placeholder="between 0 and 5" style="width:25%;"
-						min="0" max="5">
-						</input>
-				</span>
+
+				<!-- Apparently we don't have ratings.   -->
+				<!-- <label for="rating">Rating: </label>
+				<span><input class="form-control" type="number" placeholder="between 0 and 5" style="width:25%;" min="0" max="5"></input>
+				</span> -->
 			
 		<br>
 		<input type="submit" name="submitReview" class="btn btn-success" value="submit review">
@@ -187,6 +199,9 @@
 			<h2>Products: </h2>
 			<p>To be determined</p>
 			<p>Please wait for them. Seriously they will be awesome.</p>
+			<!-- Don't want to be able to do the below. I assume. -->
+			<!-- <?php print_r($db->query("SELECT * FROM users", array())->getResults()); ?> -->
+			
 		</div>
 	</div>
 </div>
