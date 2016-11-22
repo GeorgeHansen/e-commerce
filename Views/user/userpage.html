@@ -52,13 +52,13 @@
 		<!-- header section thing -->
 		<div class="portion">
 			<div class="container content">
-				<img src="http://placehold.it/200x200">
+				<img src="http://placehold.it/200x200" title="Too ugly to display">
 				<h3><a href="">
 					<?php 
 						// print_r($reviews);
-					 if(isset($username)){
-							echo $username[0]->user_name;
-				 		} ?>
+					if(isset($username)){
+						echo $username[0]->user_name;
+					} ?>
 				</a></h3>
 				<p><strong>From:</strong> United States of America</p>
 				<p><strong>Rating: 
@@ -82,77 +82,36 @@
 				<!-- First Review -->
 				<?php if(!empty($reviews)){ 
 
-						for($i=0; $i< count($reviews); $i++){
+					for($i=0; $i< count($reviews); $i++){
 
-				?>
-				<div class="row">
-					<div class="col-sm-10">
-						<p>
-							<!-- TODO: actually link it to the reviewers page. -->
-							<a href=""><?php echo $reviews[$i]->getReviewer(); ?></a>: <?php echo $reviews[$i]->getReview(); ?>
-						</p>
-
-					</div>
-					<div class="col-sm-2">
+						?>
 						<div class="row">
-							<span class="glyphicon glyphicon-star-empty rating"></span>
-							<span class="glyphicon glyphicon-star-empty rating"></span>
-							<span class="glyphicon glyphicon-star-empty rating"></span>
-							<span class="glyphicon glyphicon-star-empty rating"></span>
-							<span class="glyphicon glyphicon-star-empty rating"></span>
+							<div class="col-sm-10">
+								<p>
+									<!-- TODO: actually link it to the reviewers page. -->
+									<a href=""><?php echo $reviews[$i]->getReviewer(); ?></a>: <?php echo $reviews[$i]->getReview(); ?>
+								</p>
+
+							</div>
+							<div class="col-sm-2">
+								<div class="row">
+									<span class="glyphicon glyphicon-star-empty rating"></span>
+									<span class="glyphicon glyphicon-star-empty rating"></span>
+									<span class="glyphicon glyphicon-star-empty rating"></span>
+									<span class="glyphicon glyphicon-star-empty rating"></span>
+									<span class="glyphicon glyphicon-star-empty rating"></span>
+								</div>
+								<div class="row" >
+									<strong><p><?php echo $reviews[$i]->getReviewDate(); ?></p></strong>
+								</div>
+							</div>
 						</div>
-						<div class="row" >
-							<strong><p><?php echo $reviews[$i]->getReviewDate(); ?></p></strong>
-						</div>
-					</div>
-				</div>
-				<?php 
-						}
+						<?php 
 					}
-					else{
-						echo "There are currently no reviews, how about you make one?";
-					} ?>
-				<!-- Second Review --><!-- 
-				<div class="row">
-					<div class="col-sm-10">
-						<p>
-							<a href="">Peter Pan</a>: Something up with your delivery speed. It's too FAST!!! 
-						</p>
-					</div>
-					<div class="col-sm-2">
-						<div class="row">
-							<span class="glyphicon glyphicon-star rating"></span>
-							<span class="glyphicon glyphicon-star rating"></span>
-							<span class="glyphicon glyphicon-star rating"></span>
-							<span class="glyphicon glyphicon-star rating"></span>
-							<span class="glyphicon glyphicon-star-empty rating"></span>
-						</div>
-						<div class="row" >
-							<strong><p>19/11/2015</p></strong>
-						</div>
-					</div>
-				</div>
-				<!-- Third Review --> <!--
-				<div class="row">
-					<div class="col-sm-10">
-						<p>
-							<a href="">O'TooleSalinsky</a>: Pretty stand up guy. A little dissapointed he's so short but the products he sells are on point. 
-						</p>
-					</div>
-					<div class="col-sm-2">
-						<div class="row">
-							<span class="glyphicon glyphicon-star rating"></span>
-							<span class="glyphicon glyphicon-star rating"></span>
-							<span class="glyphicon glyphicon-star rating"></span>
-							<span class="glyphicon glyphicon-star-empty rating"></span>
-							<span class="glyphicon glyphicon-star-empty rating"></span>
-						</div>
-						<div class="row" >
-							<strong><p>01/01/2001</p></strong>
-						</div>
-					</div>
-				</div> -->
-
+				}
+				else{
+					echo "There are currently no reviews, how about you make one?";
+				} ?>
 				<div class="row">
 					<div class="col-sm-5">
 						<h4><a href="">Read more reviews</a></h4>
@@ -168,28 +127,32 @@
 	<div class="container">
 		<div class="portion">
 			<div class="container content">
-				<form class="form-horizontal" name="review" id="review" method="post" action="?controller=user&action=post">
+				<form class="form-horizontal" name="review" id="review"  method="post" 
+				action="?controller=user&action=post">
+					
+					<label for="reviewText">Leave a review:</label>
+					<textarea class="form-control" rows="4" id="reviewText" name="reviewText" style="width:97%;"></textarea>
+					<input type="hidden" name="reviewed" value=<?php echo $_GET['id']; ?> />
 
+						<!-- Apparently we don't have ratings.   -->
+					<!-- <label for="rating">Rating: </label>
+					<span><input class="form-control" type="number" placeholder="between 0 and 5" style="width:25%;" min="0" max="5"></input>
+					</span> -->
 
-				<label for="review">Leave a review:</label>
-				<textarea class="form-control" rows="4" id="review" style="width:97%;"></textarea>
-
-				<!-- Apparently we don't have ratings.   -->
-				<!-- <label for="rating">Rating: </label>
-				<span><input class="form-control" type="number" placeholder="between 0 and 5" style="width:25%;" min="0" max="5"></input>
-				</span> -->
-			
-		<br>
-		<input type="submit" name="submitReview" class="btn btn-success" value="submit review">
+					<br>
+					
+						<input type="submit" name="submitReview" class="btn btn-success" value="submit review">
+					<!-- </div> -->
+				</form>
 			</div>
 
-			</form>
-
-		</div>
-
-
+		
 
 	</div>
+
+
+
+</div>
 </div>
 </div>
 <!-- Products -->
