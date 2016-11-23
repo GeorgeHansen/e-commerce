@@ -36,7 +36,7 @@
     // TODO: Loop through each product. Make sure to limit the number of products to 4.
     // We need: product [name: description: picture: price ] user[ user_name ]
    
-   for($i = 0; $i< count($products); $i++){ 
+   for($i = 0; $i< count($productList); $i++){ 
 
     ?>
     <!-- Template for all products -->
