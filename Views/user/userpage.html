@@ -60,8 +60,8 @@
 						echo $username[0]->user_name;
 					} ?>
 				</a></h3>
-				<p><strong>From:</strong> United States of America</p>
-				<p><strong>Rating: 
+				<p ><strong>From:</strong> United States of America</p>
+				<p title="everyone is awesome!"><strong>Rating: 
 					<span class="glyphicon glyphicon-star rating"></span>
 					<span class="glyphicon glyphicon-star rating"></span>
 					<span class="glyphicon glyphicon-star rating"></span>
@@ -132,7 +132,9 @@
 					
 					<label for="reviewText">Leave a review:</label>
 					<textarea class="form-control" rows="4" id="reviewText" name="reviewText" style="width:97%;"></textarea>
-					<input type="hidden" name="reviewed" value=<?php echo $_GET['id']; ?> />
+					<!-- Changing this hidden input field means you can post on someone elses page. That's more or less it. Still needs changing, Session?
+					 -->
+					<!-- <input type="hidden" name="reviewed" value=<?php echo $_GET['id']; ?> /> -->
 
 						<!-- Apparently we don't have ratings.   -->
 					<!-- <label for="rating">Rating: </label>
@@ -163,7 +165,6 @@
 			<p>To be determined</p>
 			<p>Please wait for them. Seriously they will be awesome.</p>
 			<!-- Don't want to be able to do the below. I assume. -->
-			<!-- <?php print_r($db->query("SELECT * FROM users", array())->getResults()); ?> -->
 			
 		</div>
 	</div>

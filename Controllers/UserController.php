@@ -24,6 +24,9 @@ class UserController{
             $db = Database::getInstance();
             $userId = $_GET["id"];
 
+            session_start();
+            $_SESSION['userId'] = $userId;
+            
             $userCount = $db->query("SELECT user_name FROM users where id=?", array($userId))->count();
             $username = $db->getResults();
             
@@ -66,7 +69,9 @@ class UserController{
     }
     public function post()
     {
-       	
+       	session_start();
+      
+
         require_once('Validator.php');
     	$validate = new Validator();
     	//pass through each field you want checked, plus the rules.
@@ -86,12 +91,12 @@ class UserController{
             $reviewPost = $_POST['reviewText'];
             $dateTime = date('Y-m-d H:i:s');
             //Need to get the data from whomever is logged in.
-            $reviewer;
-            $reviewed =  $_POST['reviewed'];
+            $reviewer = 36;
+            $reviewed =  $_SESSION['userId'];
 
             //database insert time.
             // Need to make sure to clean up the review.
-            $db->query('INSERT INTO reviews (reviewer_userid, reviewed_userid, review,review_date) VALUES(?,?,?,?)', array(,$reviewed,$reviewPost, $dataTime));
+            $db->query('INSERT INTO reviews (reviewer_userid, reviewed_userid, review,review_date) VALUES(?,?,?,?)', array($reviewer,$reviewed,$reviewPost, $dataTime));
 
             header("Location: http://localhost:8080/webSecurity/?controller=user&action=home&id=".$reviewed);
 		}
@@ -99,7 +104,8 @@ class UserController{
     	{
     		//TODO: properly display error messages in the view. 
     		//Should be contained in the errors array in the validator. 
-    		require_once("views/user/userpage.php");
+            $reviewed=$_SESSION['userid'];
+    		header("Location: http://localhost:8080/webSecurity/?controller=user&action=home&id=".$reviewed);
     	}
         
 		
