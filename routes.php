@@ -9,6 +9,9 @@ function call($controller, $action) {
       case 'registration':
         $controller = new RegistrationController();
       break;
+      case 'login':
+        $controller = new LoginController();
+      break;
     }
 
     // call the action
@@ -17,7 +20,9 @@ function call($controller, $action) {
 
   // just a list of the controllers we have and their actions
   // we consider those "allowed" values
-  $controllers = array('registration' => ['home','post','update','delete', 'error']);
+  $controllers = array('registration' => ['home','post','update','delete', 'error','testhome'],
+                       'login' => ['home','error','post']);
+  // $controllers = array('login' => ['login','error','post']);
 
   // check that the requested controller and action are both allowed
   // if someone tries to access something else he will be redirected to the error action of the pages controller
