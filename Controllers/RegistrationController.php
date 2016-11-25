@@ -87,7 +87,7 @@ class RegistrationController{
 					array($last_id, $ipaddress));
 			
 
-			echo "TODO: send me to the home page";
+			header("Location: ?controller=homepage&action=home");
 		}
     	else
     	{
