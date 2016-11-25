@@ -1,0 +1,184 @@
+<html>
+<head>
+	<title>User yada yada</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	
+	body{
+		background-color: #f1f1f1;
+	}
+
+	.portion{
+		background-color: #ffffff;
+		/*padding: 0.01em;*/
+		padding-top: 10px;
+		padding-bottom: 10px;
+
+
+		margin: 10px 0;
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+		border-radius: 10px;
+	}
+	.content {
+		overflow: hidden;
+	}
+	.rating{
+		color:#FFA500 ;
+	}
+
+	.content img {
+		margin-right: 15px;
+		float: left;
+	}
+	img{
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+		border-radius: 15px;
+	}
+
+	/*Can't get this to work for some reason */
+	.review{
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	</style>
+	
+</head>
+<body>
+
+
+	<div class="container">
+		<!-- header section thing -->
+		<div class="portion">
+			<div class="container content">
+				<img src="http://placehold.it/200x200" title="Too ugly to display">
+				<h3><a href="">
+					<?php 
+						// print_r($reviews);
+					if(isset($username)){
+						echo htmlspecialchars($username[0]->user_name, ENT_QUOTES, 'UTF-8');
+						// echo $username[0]->user_name;
+					} ?>
+				</a></h3>
+				<p ><strong>From:</strong> United States of America</p>
+				<p title="everyone is awesome!"><strong>Rating: 
+					<span class="glyphicon glyphicon-star rating"></span>
+					<span class="glyphicon glyphicon-star rating"></span>
+					<span class="glyphicon glyphicon-star rating"></span>
+					<span class="glyphicon glyphicon-star rating"></span>
+					<span class="glyphicon glyphicon-star-empty rating"></span>
+				</strong></p>
+			</div>
+		</div>
+	</div>
+	<!-- div for reviews -->
+	<div class="container">
+		<div class="portion">
+			<div class="container content">
+				<h3>Reviews</h3>
+
+
+				<!-- Only display the last 5 reviews -->
+				<!-- First Review -->
+				<?php if(!empty($reviews)){ 
+
+					for($i=0; $i< count($reviews); $i++){
+
+						?>
+						<div class="row">
+							<div class="col-sm-10">
+								<p>
+									<!-- TODO: actually link it to the reviewers page. -->
+									<a href="">
+										<?php echo htmlspecialchars($reviews[$i]->getReviewer(), ENT_QUOTES, 'UTF-8');?>
+										</a>:<?php
+										echo htmlspecialchars($reviews[$i]->getReview(), ENT_QUOTES, 'UTF-8');
+										?>
+									</p>
+
+								</div>
+								<div class="col-sm-2">
+									<div class="row">
+										<span class="glyphicon glyphicon-star-empty rating"></span>
+										<span class="glyphicon glyphicon-star-empty rating"></span>
+										<span class="glyphicon glyphicon-star-empty rating"></span>
+										<span class="glyphicon glyphicon-star-empty rating"></span>
+										<span class="glyphicon glyphicon-star-empty rating"></span>
+									</div>
+									<div class="row" >
+										<strong><p><?php echo htmlspecialchars($reviews[$i]->getReviewDate(), ENT_QUOTES, 'UTF-8');?></p></strong>
+									</div>
+								</div>
+							</div>
+							<?php 
+						}
+					}
+					else{
+						echo "There are currently no reviews, how about you make one?";
+					} ?>
+					<div class="row">
+						<div class="col-sm-5">
+							<h4><a href="">Read more reviews</a></h4>
+						</div>
+					</div>
+					<!-- End Review -->
+
+				</div>
+
+			</div>
+		</div>
+		<!-- Leave a review -->
+		<div class="container">
+			<div class="portion">
+				<div class="container content">
+					<form class="form-horizontal" name="review" id="review"  method="post" 
+					action="?controller=user&action=post">
+					
+					<label for="reviewText">Leave a review:</label>
+					<textarea class="form-control" rows="4" id="reviewText" name="reviewText" style="width:97%;"></textarea>
+
+				<!-- Apparently we don't have ratings.   -->
+					<!-- <label for="rating">Rating: </label>
+					<span><input class="form-control" type="number" placeholder="between 0 and 5" style="width:25%;" min="0" max="5"></input>
+					</span> -->
+
+					<br>
+					
+					<input type="submit" name="submitReview" class="btn btn-success" value="submit review">
+					<!-- </div> -->
+				</form>
+			</div>
+
+
+
+		</div>
+
+
+
+	</div>
+</div>
+</div>
+<!-- Products -->
+<div class="container">
+	<div class="portion">
+		<div class="container content">
+			<h2>Products: </h2>
+			<p>To be determined</p>
+			<p>Please wait for them. Seriously they will be awesome.</p>
+			<!-- Don't want to be able to do the below. I assume. -->
+			
+		</div>
+	</div>
+</div>
+
+
+
+
+<!-- div for products -->
+
+
+
+
+</body>
+</html>

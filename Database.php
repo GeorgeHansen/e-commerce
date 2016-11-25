@@ -68,9 +68,13 @@ class Database{
 	{
 		return $this->_error;
 	}
-	public function count()
+	public function getCount()
 	{
 		return $this->_count;
+	}
+	public function getResults()
+	{
+		return $this->_results;
 	}
 
 	//I think the database class is used to abstract away the pdo. 
@@ -79,5 +83,9 @@ class Database{
 	public function pdo()
 	{
 		return $this->_pdo;
+	}
+	public function getResults()
+	{
+		return $this->_results;
 	}
 }
