@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -20,7 +19,7 @@ class Database{
 	{
 		try
 		{
-			$this->_pdo = new PDO('mysql:host=localhost;dbname=pro1','root','');
+			$this->_pdo = new PDO('mysql:host=localhost;dbname=websec01','root','');
 		}
 		catch(PDOException $e)
 		{
@@ -73,10 +72,7 @@ class Database{
 	{
 		return $this->_count;
 	}
-	public function resultSet()
-	{
-		return $this->_results;
-	}
+
 	//I think the database class is used to abstract away the pdo. 
 	//returning the pdo is thus probably pretty silly. Oh well.
 	//this may be dealt with later.
