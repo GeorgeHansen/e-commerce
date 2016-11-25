@@ -15,6 +15,22 @@ class Database{
 			$_results,
 			$_count = 0;
 
+	/**
+	 * @return mixed
+	 */
+	public function getResults()
+	{
+		return $this->_results;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getCount()
+	{
+		return $this->_count;
+	}
+
 	private function __construct()
 	{
 		try
@@ -64,19 +80,11 @@ class Database{
 		}
 		return $this;
 	}
+
 	public function error()
 	{
 		return $this->_error;
 	}
-	public function getCount()
-	{
-		return $this->_count;
-	}
-	public function getResults()
-	{
-		return $this->_results;
-	}
-
 	//I think the database class is used to abstract away the pdo. 
 	//returning the pdo is thus probably pretty silly. Oh well.
 	//this may be dealt with later.
@@ -84,8 +92,5 @@ class Database{
 	{
 		return $this->_pdo;
 	}
-	public function getResults()
-	{
-		return $this->_results;
-	}
+
 }
