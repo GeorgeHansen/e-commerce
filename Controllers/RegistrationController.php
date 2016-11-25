@@ -1,13 +1,14 @@
 <?php 
 class RegistrationController{
-
-	
 	//the get page.
 	public function home()
 	{
       require_once('views/registration/home.html');
     }
-
+    public function testhome()
+    {
+      require_once('views/registration/testhome.php');
+    }
     public function error() 
     {
       require_once('views/registration/error.php');
@@ -85,9 +86,9 @@ class RegistrationController{
 			Database::getInstance()
 				->query("INSERT INTO ips(userid,ip) values(?,?)",
 					array($last_id, $ipaddress));
-			
 
 			header("Location: ?controller=homepage&action=home");
+
 		}
     	else
     	{
