@@ -84,4 +84,8 @@ class Database{
 	{
 		return $this->_pdo;
 	}
+	public function getResults()
+	{
+		return $this->_results;
+	}
 }
