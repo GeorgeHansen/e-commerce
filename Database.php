@@ -24,14 +24,6 @@ class Database{
 	}
 
 	/**
-	 * @return boolean
-	 */
-	public function isError()
-	{
-		return $this->_error;
-	}
-
-	/**
 	 * @return int
 	 */
 	public function getCount()
@@ -88,6 +80,11 @@ class Database{
 		}
 		return $this;
 	}
+
+	public function error()
+	{
+		return $this->_error;
+	}
 	//I think the database class is used to abstract away the pdo. 
 	//returning the pdo is thus probably pretty silly. Oh well.
 	//this may be dealt with later.
@@ -95,4 +92,5 @@ class Database{
 	{
 		return $this->_pdo;
 	}
+
 }

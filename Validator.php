@@ -79,7 +79,7 @@ class Validator{
 
 							require_once('Database.php');
 							//item is the value from the table. rule value is the table and value is the value we want to check.
-							$count = Database::getInstance()->query("SELECT ". $item. " FROM ".$rule_value." where ".$item."=?", array($value))->count();
+							$count = Database::getInstance()->query("SELECT ". $item. " FROM ".$rule_value." where ".$item."=?", array($value))->getCount();
 							if($count)
 							{
 								$this->addError($item. " already exists");
