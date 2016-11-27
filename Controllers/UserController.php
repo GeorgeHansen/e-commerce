@@ -93,12 +93,12 @@ class UserController{
             $reviewPost = $_POST['reviewText'];
             $dateTime = date('Y-m-d H:i:s');
             //Need to get the data from whomever is logged in.
-            $reviewer = 5;
+            $reviewer = $_SESSION['user_id'];
             $reviewed =  $_SESSION['userId'];
 
             //database insert time.
             // Need to make sure to clean up the review.
-            $db->query('INSERT INTO review (reviewer_userid, reviewed_userid, review,review_date) VALUES(?,?,?,?)', array($reviewer,$reviewed,$reviewPost, $dataTime));
+            $db->query('INSERT INTO review (reviewer_userid, reviewed_userid, review,review_date) VALUES(?,?,?,?)', array($reviewer,$reviewed,$reviewPost, $dateTime));
 
             header("Location: ?controller=User&action=home&id=".$reviewed);
 		}
