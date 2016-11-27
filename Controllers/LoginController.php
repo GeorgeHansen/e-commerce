@@ -5,12 +5,12 @@ class LoginController{
 	//the get page.
 	public function home()
 	{
-      require_once('views/login/loginhome.php');
+      require_once('Views/login/loginhome.php');
     }
 
     public function error() 
     {
-      require_once('views/registration/error.php');
+      require_once('Views/registration/error.php');
     }
     public function post()
     {
@@ -41,13 +41,13 @@ class LoginController{
                     if(isset($_SESSION['token']) && $_POST['token'] == $_SESSION['token'])
                     {
                     $count = Database::getInstance()->query("SELECT * FROM users where user_name=?", array($senetizeuser));
-                    $result = $count->resultSet();
+                    $result = $count->getResults();
                     if( $senetizeuser == $result[0]->user_name  && password_verify($senetizepassword,$result[0]->user_password))
                     {
                         $userid = $result[0]->id;
                         $this->CheckIp( $userid);
                         $_SESSION['user_id'] =$userid;
-                       header("Location: ?controller=registration&action=testhome");
+                       header("Location: ?controller=Registration&action=testhome");
                         $passwordha = $result[0]->user_password;
                         $user = $result[0]->user_name;
                     }
@@ -66,7 +66,7 @@ class LoginController{
     	{
             //TODO: properly display error messages in the view. 
     		//Should be contained in the errors array in the validator. 
-    		require_once("views/login/login.php");
+    		require_once("Views/login/login.php");
     	}
 		
     }
@@ -106,7 +106,7 @@ private function CheckIp( $userId )
 {
     print_r($userId);
  $count = Database::getInstance()->query("SELECT * FROM ips where userid=?", array($userId));
-                    $result = $count->resultSet();
+                    $result = $count->getResults();
                     if($result != null  )
                     {
                         if($this->get_client_ip() !=  $result[0]->ip )

@@ -2,6 +2,7 @@
 
 session_start();
 
+echo 'php is working';
 // if( isset($_SESSION['user_id']) ){
 // 	header("Location: /");
 // }

@@ -17,7 +17,7 @@ $token = $_SESSION['token'] = md5(uniqid(mt_rand(),true));
 		
 	</head>
 	<body>
-		<form class="form-horizontal" name="testForm" id="testForm" method="post" action="?controller=login&action=post">
+		<form class="form-horizontal" name="testForm" id="testForm" method="post" action="?controller=Login&action=post">
 			<div class="form-group">
 				<label class="control-label col-sm-2"><h2>Welcome!!!</h2></label>
 			</div>

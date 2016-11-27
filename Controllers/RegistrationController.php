@@ -3,15 +3,15 @@ class RegistrationController{
 	//the get page.
 	public function home()
 	{
-      require_once('views/registration/home.html');
+      require_once('Views/registration/home.php');
     }
     public function testhome()
     {
-      require_once('views/registration/testhome.php');
+      require_once('Views/registration/testhome.php');
     }
     public function error() 
     {
-      require_once('views/registration/error.php');
+      require_once('Views/registration/error.php');
     }
     public function post()
     {
@@ -67,11 +67,12 @@ class RegistrationController{
 
 			
     		$hashedPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
+		echo $hashedPassword;
     				
 			//Inserting user.
 			$sql = Database::getInstance()
-					->query("INSERT INTO users (user_name, user_password, user_role) VALUES(?,?,?)",
-				 			array($user,$hashedPassword, 1));
+					->query("INSERT INTO users (user_name, user_password, user_role,user_verified) VALUES(?,?,?,?)",
+				 			array($user,$hashedPassword, 1,1));
 			
 			//Grab the inserted users id.
 			$last_id = Database::getInstance()->pdo()->lastInsertId();
@@ -84,17 +85,17 @@ class RegistrationController{
 			//Recording the ip address of the registree.
 			$ipaddress = $this->get_client_ip();
 			Database::getInstance()
-				->query("INSERT INTO ips(userid,ip) values(?,?)",
+				->query("INSERT INTO ip(userid,ip) values(?,?)",
 					array($last_id, $ipaddress));
 
-			header("Location: ?controller=homepage&action=home");
+			//header("Location: ?controller=Homepage&action=home");
 
 		}
     	else
     	{
     		//TODO: properly display error messages in the view. 
     		//Should be contained in the errors array in the validator. 
-    		require_once("views/registration/home.php");
+    		require_once("Views/registration/home.php");
     	}
 		
     }

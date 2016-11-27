@@ -16,7 +16,7 @@ class HomepageController{
 		$productCount = $db
 		->query(
 			"SELECT id, product_name, product_description, product_picture,product_price, owner_userid
-			FROM products
+			FROM product
 			ORDER BY product_date
 			DESC Limit 4")->getCount();
 
@@ -48,7 +48,7 @@ class HomepageController{
 		// print_r($productList);
 
 
-    	require_once('views/homepage/homepage.php');
+    	require_once('Views/homepage/homepage.php');
     }
 
 }

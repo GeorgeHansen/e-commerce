@@ -55,7 +55,7 @@
                     if(isset($products)){
                         echo htmlspecialchars($productList[$i]->getName(), ENT_QUOTES, 'UTF-8'); 
                     ?> 
-                    </a><small><a href=<?php echo "?controller=user&action=home&id=". htmlspecialchars($productList[$i]->getOwnerId(), ENT_QUOTES, 'UTF-8') ?>>- <?php  echo htmlspecialchars($productList[$i]->getOwner(), ENT_QUOTES, 'UTF-8');  ?></a></small></h3>
+                    </a><small><a href=<?php echo "?controller=User&action=home&id=". htmlspecialchars($productList[$i]->getOwnerId(), ENT_QUOTES, 'UTF-8') ?>>- <?php  echo htmlspecialchars($productList[$i]->getOwner(), ENT_QUOTES, 'UTF-8');  ?></a></small></h3>
                     <!-- TODO: we'll need to limit the text to about this much. -->
                     <p><?php echo  htmlspecialchars($productList[$i]->getDescription(), ENT_QUOTES, 'UTF-8'); ?></p>
                 </div>

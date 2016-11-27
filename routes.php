@@ -2,20 +2,20 @@
 
 function call($controller, $action) {
     // require the file that matches the controller name
-    require_once('controllers/' . $controller . 'Controller.php');
+    require_once('Controllers/' . $controller . 'Controller.php');
 
     // create a new instance of the needed controller
     switch($controller) {
-      case 'registration':
+      case 'Registration':
         $controller = new RegistrationController();
       break;
-      case 'login':
+      case 'Login':
         $controller = new LoginController();
       break;
-      case 'user':
+      case 'User':
         $controller = new UserController();
       break;
-      case 'homepage' :
+      case 'Homepage' :
         $controller = new HomepageController();
       break;
     }
@@ -27,10 +27,10 @@ function call($controller, $action) {
   // just a list of the controllers we have and their actions
   // we consider those "allowed" values
 
-  $controllers = array('registration' => ['home','post','update','delete', 'error','testhome'],
-                       'login' => ['home','error','post'],
-                      'user'  => ['home','post', 'error'],
-                        'homepage'     => ['home','error']);
+  $controllers = array('Registration' => ['home','post','update','delete', 'error','testhome'],
+                       'Login' => ['home','error','post'],
+                      'User'  => ['home','post', 'error'],
+                        'Homepage'     => ['home','error']);
 
 
 

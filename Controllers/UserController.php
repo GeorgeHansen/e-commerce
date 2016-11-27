@@ -27,14 +27,14 @@ class UserController{
             session_start();
             $_SESSION['userId'] = $userId;
             
-            $userCount = $db->query("SELECT user_name FROM users where id=?", array($userId))->count();
+            $userCount = $db->query("SELECT user_name FROM users where id=?", array($userId))->getCount();
             $username = $db->getResults();
             
             if($userCount > 0)
             {
                 //don't want to retrieve more than 4 of the newest reviews.
                 $reviewsResult = $db
-                ->query("SELECT * FROM reviews where reviewed_userid = ? ORDER BY review_date DESC Limit 4 ",array($userId))
+                ->query("SELECT * FROM review where reviewed_userid = ? ORDER BY review_date DESC Limit 4 ",array($userId))
                 ->getResults();
 
                 $reviews = array();
@@ -42,7 +42,9 @@ class UserController{
                 //looping through the reviews and finding the reviewer associated with them. 
                 for($i = 0; $i < count($reviewsResult); $i++)
                 {
-                    $review = $reviewsResult[$i]->review;
+                    
+		  
+		    $review = $reviewsResult[$i]->review;
                     $reviewDate = $reviewsResult[$i]->review_date;
                     $reviewerId = $reviewsResult[$i]->reviewer_userid;
 
@@ -54,7 +56,7 @@ class UserController{
                     array_push($reviews, $review);
 
                 }
-                require_once('views/user/userpage.html');
+                require_once('Views/user/userpage.html');
             }
             else{
                 //user doesn't exist. Go to home page.
@@ -65,7 +67,7 @@ class UserController{
 
     public function error() 
     {
-      require_once('views/registration/error.php');
+      require_once('Views/registration/error.php');
     }
     public function post()
     {
@@ -91,21 +93,21 @@ class UserController{
             $reviewPost = $_POST['reviewText'];
             $dateTime = date('Y-m-d H:i:s');
             //Need to get the data from whomever is logged in.
-            $reviewer = 36;
+            $reviewer = 5;
             $reviewed =  $_SESSION['userId'];
 
             //database insert time.
             // Need to make sure to clean up the review.
-            $db->query('INSERT INTO reviews (reviewer_userid, reviewed_userid, review,review_date) VALUES(?,?,?,?)', array($reviewer,$reviewed,$reviewPost, $dataTime));
+            $db->query('INSERT INTO review (reviewer_userid, reviewed_userid, review,review_date) VALUES(?,?,?,?)', array($reviewer,$reviewed,$reviewPost, $dataTime));
 
-            header("Location: http://localhost:8080/webSecurity/?controller=user&action=home&id=".$reviewed);
+            header("Location: ?controller=User&action=home&id=".$reviewed);
 		}
     	else
     	{
     		//TODO: properly display error messages in the view. 
     		//Should be contained in the errors array in the validator. 
             $reviewed=$_SESSION['userid'];
-    		header("Location: http://localhost:8080/webSecurity/?controller=user&action=home&id=".$reviewed);
+    		header("Location: ?controller=User&action=home&id=".$reviewed);
     	}
         
 		

@@ -66,7 +66,7 @@ if( isset($_SESSION['user_id']) ){
 	<div class="container">
 		<div class="portion">
 			<div class=" ">
-				<form class="form-horizontal " name="testForm" id="testForm" method="post" action="?controller=registration&action=post">
+				<form class="form-horizontal " name="testForm" id="testForm" method="post" action="?controller=Registration&action=post">
 					<div class="form-group centerize">
 						<label class="control-label col-sm-2"><h2>Welcome!!!</h2></label>
 					</div>
