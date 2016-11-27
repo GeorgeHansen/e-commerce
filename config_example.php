@@ -6,8 +6,8 @@
 $config = array(
     "db" => array(
             "dbname" => "insert_dbname",
-            "username" => "insert_username",
-            "password" => "insert_password",
+            "user" => "insert_username",
+            "pass" => "insert_password",
             "host" => "insert_host"
     ),
     "comapi" => array(

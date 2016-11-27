@@ -17,7 +17,7 @@ class comapi {
     function __construct(){
         global $config;
         $this->sms_username=$config["comapi"]["user"];
-        $this->sms_password=$config["comapi"]["passw"];
+        $this->sms_password=$config["comapi"]["pass"];
     }
 
     /**
@@ -108,6 +108,23 @@ class comapi {
             'userid' => $this->sms_username,
             'date' => $date
         )));
+        /*
+        $ch = curl_init();
+        $url="https://kallasoft.dk/api/sms_infov2.php?request=$getData";
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+
+        $response  = curl_exec($ch);
+        if($response === FALSE){
+            die(curl_error($ch));
+        }
+        curl_close($ch);
+
+        echo $url;
+
+        return json_decode($response);
+*/
         /*
         $ch = curl_init();
         $url="https://kallasoft.dk/api/sms_infov2.php?request=$getData";
