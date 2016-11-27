@@ -8,6 +8,7 @@
  * Database Insert/Update: 
  */
 class Database{
+
 	private static $_instance = null;
 	private $_pdo,
 			$_query,
@@ -33,9 +34,13 @@ class Database{
 
 	private function __construct()
 	{
+		include('config.php');
 		try
 		{
-			$this->_pdo = new PDO('mysql:host=localhost;dbname=websec01','root','');
+
+			$this->_pdo = new PDO("mysql:host=".$config["db"]["host"].";dbname=".$config["db"]["dbname"].";", $config["db"]["user"], $config["db"]["pass"]);
+
+
 		}
 		catch(PDOException $e)
 		{
