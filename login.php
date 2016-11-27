@@ -2,7 +2,7 @@
 
 session_start();
 
-echo 'php is working';
+//echo 'php is working';
 // if( isset($_SESSION['user_id']) ){
 // 	header("Location: /");
 // }
@@ -16,7 +16,7 @@ if(!empty($_POST['user']) && !empty($_POST['password']))
 	$cr->IfUserexists($_POST['user'], $_POST['password']);
 }
 	else{
-		echo('not ture');
+		//echo('not ture');
 	}
 
 ?>

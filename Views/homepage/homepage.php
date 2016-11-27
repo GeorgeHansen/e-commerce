@@ -62,7 +62,7 @@
             </div>
             <div class="row">
                 <div class="caption">
-                    <h4>Price: <medium class="text-danger"data-toggle="tooltip" title="too much for you!">
+                    <h4>Price: <medium class="text-success"data-toggle="tooltip">
                         <?php echo htmlspecialchars($productList[$i]->getPrice(), ENT_QUOTES, 'UTF-8'); ?>
                     </medium></h4>
                 </div>

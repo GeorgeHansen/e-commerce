@@ -12,7 +12,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="?controller=Homepage&action=home">Webshop</a>
+      <a class="navbar-brand" href="\">Webshop</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,16 +33,21 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">About Us</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-
-        
+          <?php 
+          if(!isset($_SESSION['user_id'])) {
+                echo '<li><a href="/e-commerce/?controller=Login&action=home"><span class="glyphicon glyphicon-user"></span> Log in</a></li>';
+          }else {?>
+                 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Samuel <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION['user_name'])){echo "Welcome, " . $_SESSION['user_name'];} ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Account Settings</a></li>
-            <li><a href="#">Log out</a></li>
+            <li><a href="/e-commerce/logout.php">Log out</a></li>
           </ul>
         </li>
+          <?php
+            }
+          ?>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

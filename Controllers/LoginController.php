@@ -15,7 +15,7 @@ class LoginController{
     public function post()
     {
       
-        session_start();
+        //session_start();
         require_once('Validator.php');
     	$validate = new Validator();
 
@@ -47,7 +47,8 @@ class LoginController{
                         $userid = $result[0]->id;
                         $this->CheckIp( $userid);
                         $_SESSION['user_id'] =$userid;
-                       header("Location: ?controller=Registration&action=testhome");
+                        $_SESSION['user_name']=$user;
+                       header("Location: /");
                         $passwordha = $result[0]->user_password;
                         $user = $result[0]->user_name;
                     }
@@ -113,12 +114,12 @@ private function CheckIp( $userId )
                        {
                         //sendemail
                         //hear i have to call email api to send email if the ip is changed 
-                        echo("your ip is changed");
+                        echo("Your IP has been changed...");
                        }
                     }
                     else
                     {
-                         echo("Not Loged In or ip is not saved in registeration");
+                         echo("You are not logged in or your IP is not saved at registeration");
                     }
 }
 function escape($string) {

@@ -40,7 +40,7 @@ try {
 	$records->execute();
 	$results = $records->fetch(PDO::FETCH_ASSOC);
     // echo a message to say the UPDATE succeeded
-    echo $results  . " records UPDATED successfully";
+    echo $results  . " Records UPDATED successfully.";
     }
 catch(PDOException $e)
     {

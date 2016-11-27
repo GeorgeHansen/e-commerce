@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+//session_start();
 $token = $_SESSION['token'] = md5(uniqid(mt_rand(),true));
 
 
@@ -36,12 +36,15 @@ $token = $_SESSION['token'] = md5(uniqid(mt_rand(),true));
 					<input type="password" class="form-control" name="password" id="password">
 				</div>
 			</div>
-			</div>
+               
+                       
+                   
 			<input type="hidden" name="token" value="<?=$token?>"/>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					  		<input type="submit" class="btn btn-warning" name="submit" id="submit" value="I wish to become a registered user">
-				</div>
+					  		<input type="submit" class="btn btn-warning" name="submit" id="submit" value="I wish to become a logged in user">
+                    <a href="/e-commerce/?controller=Registration&action=home">I am not a registered user.</a>
+                </div>
 			</div>
 		</form>
 	</body>

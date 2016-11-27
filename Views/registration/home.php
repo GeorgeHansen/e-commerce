@@ -1,9 +1,9 @@
 <!-- it will check if we aer already logedin if yes then it redirect to home page should be implemented to all pages after login -->
 <?php
-session_start();
+//session_start();
 
 if( isset($_SESSION['user_id']) ){
-	header("Location: /e-commerce/?controller=Homepage&action=home");
+	header("Location: /");
 }
 
 ?>
