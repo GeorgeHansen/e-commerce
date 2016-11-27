@@ -35,7 +35,7 @@ class Database{
 	{
 		try
 		{
-			$this->_pdo = new PDO('mysql:host=localhost;dbname=websec01','root','Watermelon22');
+			$this->_pdo = new PDO('mysql:host=localhost;dbname=websec01','root','');
 		}
 		catch(PDOException $e)
 		{

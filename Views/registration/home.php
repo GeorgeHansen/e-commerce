@@ -3,7 +3,7 @@
 session_start();
 
 if( isset($_SESSION['user_id']) ){
-	header("Location: /");
+	header("Location: /e-commerce/?controller=Homepage&action=home");
 }
 
 ?>

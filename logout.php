@@ -4,6 +4,6 @@ session_start();
 session_unset();
 
 session_destroy();
-header("Location: ?controller=login&action=home");
+header("Location: /e-commerce/?controller=Login&action=home");
 
 ?>
