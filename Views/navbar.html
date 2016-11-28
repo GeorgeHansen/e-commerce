@@ -35,14 +35,14 @@
         <li><a href="#">About Us</a></li>
           <?php 
           if(!isset($_SESSION['user_id'])) {
-                echo '<li><a href="/e-commerce/?controller=Login&action=home"><span class="glyphicon glyphicon-user"></span> Log in</a></li>';
+                echo '<li><a href="/?controller=Login&action=home"><span class="glyphicon glyphicon-user"></span> Log in</a></li>';
           }else {?>
                  
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION['user_name'])){echo "Welcome, " . $_SESSION['user_name'];} ?> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Account Settings</a></li>
-            <li><a href="/e-commerce/logout.php">Log out</a></li>
+            <li><a href="/logout.php">Log out</a></li>
           </ul>
         </li>
           <?php
